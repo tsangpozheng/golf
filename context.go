@@ -48,7 +48,7 @@ func NewContext(req *http.Request, res http.ResponseWriter, app *Application) *C
 	ctx.App = app
 	ctx.statusCode = 200
 	//	ctx.Header["Content-Type"] = "text/html;charset=UTF-8"
-	ctx.Request.ParseForm()
+	//ctx.Request.ParseForm()
 	ctx.IsSent = false
 	return ctx
 }
