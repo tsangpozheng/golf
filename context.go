@@ -43,7 +43,7 @@ type Context struct {
 func NewContext(req *http.Request, res http.ResponseWriter, app *Application) *Context {
 	ctx := new(Context)
 	ctx.Request = req
-	ctx.Request.ParseForm()
+	//ctx.Request.ParseForm()
 	ctx.Response = res
 	ctx.App = app
 	ctx.statusCode = 200
@@ -110,6 +110,9 @@ func (ctx *Context) Header(key string) string {
 
 // Query method retrieves the form data, return empty string if not found.
 func (ctx *Context) Query(key string, index ...int) (string, error) {
+	if ctx.Request.Form == nil {
+		ctx.Request.ParseMultipartForm(32 << 20)
+	}
 	if val, ok := ctx.Request.Form[key]; ok {
 		if len(index) == 1 {
 			return val[index[0]], nil
